@@ -6,7 +6,7 @@ from eth_account.messages import encode_defunct
 from aiohttp import ClientResponseError, ClientSession, ClientTimeout
 from aiohttp_socks import ProxyConnector
 from fake_useragent import FakeUserAgent
-from datetime import datetime
+from datetime import datetime, timedelta
 from colorama import *
 import asyncio, random, secrets, json, time, os, pytz
 
@@ -1712,6 +1712,9 @@ class PharosTestnet:
 
                 if use_proxy:
                     await self.load_proxies(use_proxy_choice)
+
+                started_at = datetime.now()
+                next_run_at = started_at + timedelta(days=1)
                 
                 separator = "=" * 25
                 for account in accounts:
@@ -1738,7 +1741,12 @@ class PharosTestnet:
                         await asyncio.sleep(3)
 
                 self.log(f"{Fore.CYAN + Style.BRIGHT}={Style.RESET_ALL}"*72)
-                seconds = 24 * 60 * 60
+
+                now = datetime.now()
+                seconds = int((next_run_at - now).total_seconds())
+                elapsed_seconds = now - started_at
+                formatted_elapsed = self.format_seconds(elapsed_seconds)
+
                 while seconds > 0:
                     formatted_time = self.format_seconds(seconds)
                     print(
@@ -1746,7 +1754,7 @@ class PharosTestnet:
                         f"{Fore.WHITE+Style.BRIGHT} {formatted_time} {Style.RESET_ALL}"
                         f"{Fore.CYAN+Style.BRIGHT}... ]{Style.RESET_ALL}"
                         f"{Fore.WHITE+Style.BRIGHT} | {Style.RESET_ALL}"
-                        f"{Fore.BLUE+Style.BRIGHT}All Accounts Have Been Processed.{Style.RESET_ALL}",
+                        f"{Fore.BLUE+Style.BRIGHT}All Accounts Have Been Processed. Elapsed time {formatted_elapsed}{Style.RESET_ALL}",
                         end="\r"
                     )
                     await asyncio.sleep(1)
