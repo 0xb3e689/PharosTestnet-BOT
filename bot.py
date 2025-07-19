@@ -417,7 +417,6 @@ class PharosTestnet:
 
             tx_hash = await self.send_raw_transaction_with_retries(account, web3, tx)
             receipt = await self.wait_for_receipt_with_retries(web3, tx_hash)
-
             block_number = receipt.blockNumber
             self.used_nonce[address] += 1
 
@@ -455,7 +454,6 @@ class PharosTestnet:
 
             tx_hash = await self.send_raw_transaction_with_retries(account, web3, wrap_tx)
             receipt = await self.wait_for_receipt_with_retries(web3, tx_hash)
-
             block_number = receipt.blockNumber
             self.used_nonce[address] += 1
 
@@ -492,7 +490,6 @@ class PharosTestnet:
 
             tx_hash = await self.send_raw_transaction_with_retries(account, web3, unwrap_tx)
             receipt = await self.wait_for_receipt_with_retries(web3, tx_hash)
-
             block_number = receipt.blockNumber
             self.used_nonce[address] += 1
 
@@ -533,7 +530,6 @@ class PharosTestnet:
 
                 tx_hash = await self.send_raw_transaction_with_retries(account, web3, approve_tx)
                 receipt = await self.wait_for_receipt_with_retries(web3, tx_hash)
-
                 block_number = receipt.blockNumber
                 self.used_nonce[address] += 1
                 
@@ -617,7 +613,6 @@ class PharosTestnet:
 
             tx_hash = await self.send_raw_transaction_with_retries(account, web3, swap_tx)
             receipt = await self.wait_for_receipt_with_retries(web3, tx_hash)
-
             block_number = receipt.blockNumber
             self.used_nonce[address] += 1
 
@@ -682,7 +677,6 @@ class PharosTestnet:
 
             tx_hash = await self.send_raw_transaction_with_retries(account, web3, lp_tx)
             receipt = await self.wait_for_receipt_with_retries(web3, tx_hash)
-
             block_number = receipt.blockNumber
             self.used_nonce[address] += 1
 
